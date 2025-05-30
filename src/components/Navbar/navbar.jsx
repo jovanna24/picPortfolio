@@ -1,36 +1,57 @@
-import './navbar.css'; 
+import './navbar.css';
 import { useState, useEffect } from 'react';
-import Navbar from 'react-bootstrap/Navbar'; 
 import Container from 'react-bootstrap/Container';
+import { Link, NavLink } from 'react-router-dom';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import logo from '../../assets/images/logo1.png';
+import navIcon1 from '../../assets/images/linkedin.svg';
+import navIcon2 from '../../assets/images/github.svg';
+import navIcon3 from '../../assets/images/instagram.svg';
 
 const NavBar = () => {
-    //state variable to keep track of whether the user has scrolled past the navbar
-    const [scrolled, setScrolled] = useState(false); 
 
-    //using useEffect hook to run the code inside the callback function whenever the component mounts or updates 
+    const [scrolled, setScrolled] = useState(false);
+
     useEffect(() => {
-        //function to handle the scroll event 
         const handleScroll = () => {
-            // check to see if user has scrolled past the navbar (50px from top of page) 
-            return window.scrollY > 50 ? true : false ;
-        }; 
-
-        // add scroll even listener to window object 
-        window.addEventListener('scroll', handleScroll); 
-        // clean up event listener when the component unmounts or updates 
-        return () => {
-            window.removeEventListener('scroll', handleScroll); 
+            setScrolled(window.scrollY > 50);
         };
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+
+        };
+
     }, []);
 
-return (
-
-    <Navbar expand="lg" className={ scrolled ? 'scrolled' : ''} >
-      <Container>
-
-      </Container>
-    </Navbar>
-); 
+   return (
+        <Navbar expand="lg" className={scrolled ? 'scrolled' : ''} >
+            <Container>
+                <Navbar.Brand>
+                    <Link to="/"> {/* Use Link if you're routing on logo click */}
+                        <img src={logo} alt="logo" />
+                    </Link>
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="me-auto"> {/* Changed ul to Nav and ms-auto to me-auto for Bootstrap alignment */}
+                        <Nav.Link as={NavLink} to="/" activeClassName="active-link">Home</Nav.Link>
+                        <Nav.Link as={NavLink} to="/about" activeClassName="active-link">About</Nav.Link>
+                        <Nav.Link as={NavLink} to="/photography" activeClassName="active-link">Photography</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+                <span className="navbar-text">
+                    <div className="social-icon">
+                        <a href="https://www.linkedin.com/in/jovanna-jimenez-profile24/"><img src={navIcon1} alt="LinkedIn" /></a>
+                        <a href="https://github.com/jovanna24"><img src={navIcon2} alt="Github" /></a>
+                        <a href="https://www.instagram.com/jovanna_g24/"><img src={navIcon3} alt="Instagram" /></a>
+                    </div>
+                    <Link to="/contact"><button className="vvd" type="button"><span>Let&apos;s Connect!</span></button></Link>
+                </span>
+            </Container>
+        </Navbar>
+    );
 };
 
-export default Navbar;
+export default NavBar;
