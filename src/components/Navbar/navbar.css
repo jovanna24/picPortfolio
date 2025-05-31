@@ -12,15 +12,14 @@
 .navbar-brand {
     display: flex;
     align-items: center;
-    width: 9%;
-
+width: 9%;
 }
 
 .navbar-brand img {
-    width: 30%;
+    width: 100%;
     display: flex;
     margin: 0 auto;
-    top: 10px;
+    top: 5px;
 }
 
   span.navbar-text {
@@ -124,5 +123,5 @@
   
 
 .navbar-toggler.collapsed {
-  background-color: rgba(184, 59, 184, 0.82);
+  background-color: rgb(220, 148, 160);
 }
